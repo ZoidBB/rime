@@ -39,6 +39,9 @@ setup(
         'Programming Language :: Python :: 3.3'
     ],
     packages=['rime','rime.core'],
+    package_data={
+        "rime": ["skel/*", "skel/content/*", "skel/data/*"]
+        },
     entry_points={
     'console_scripts': [
             'rime = rime.cli:main',

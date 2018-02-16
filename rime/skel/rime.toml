@@ -1,0 +1,18 @@
+[site]
+base_url = "/"
+plugins = [ "rime.RimeCore", "rime.ReasonTheme" ]
+
+[plugins.RimeCore]
+base_url = "/"
+
+[archetypes._default]
+base_url = "%(archetype)s/"
+route = "<int:date__year>/<int:date__month>/<int:date__day>/<slug>/"
+frontpage = true
+generate_index = true
+
+[archetypes.pages]
+base_url = ""
+route = "<path:slug>/"
+frontpage = false
+generate_index = false
