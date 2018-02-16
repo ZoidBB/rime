@@ -3,7 +3,7 @@ from rime.core.exception import ProcessingError
 from rime.core.models import models
 
 from datetime import datetime
-from flask import abort, url_for
+from flask import abort, render_template, url_for
 
 import os.path
 import re
@@ -60,7 +60,7 @@ class Archetype:
                 archetype=self.name,
                 slug=slug).first()
         if not item: abort(404)
-        return "view test: %s" % item
+        return render_template("content/_default_view.html", item=item)
 
     def _load_from_directory(self, directory):
         for entry in os.scandir(directory):

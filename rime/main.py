@@ -3,16 +3,17 @@
 Rime
 """
 
-import importlib
 
 import coloredlogs
 import flask
 import flask_frozen
+import importlib
 import mongoengine
 import os.path
 import shutil
 import tempfile
 import toml
+import hashlib
 
 from rime.assets import Environment as AssetEnvironment
 from rime.config import Config
@@ -40,8 +41,6 @@ class Rime(flask.Flask):
 
         self.freezer = None
         self.assets = None
-
-        self.jinja_env.loader = RimeLoader(self)
 
     @property
     def plugins_ordered(self):
@@ -95,6 +94,9 @@ class Rime(flask.Flask):
 
         self.assets = AssetEnvironment(self)
 
+        self.jinja_env.loader = RimeLoader(self)
+        self.jinja_env.globals['string_as_template'] = self._string_as_template
+
         @self.route("/static/<path:filename>")
         def static(filename):
             """
@@ -143,3 +145,17 @@ class Rime(flask.Flask):
     def _plugins_phase(self, phase):
         for plugin_name, plugin_obj in self.plugins.items():
             getattr(plugin_obj, phase)()
+
+    def _string_as_template(self, s):
+        hasher = hashlib.sha512()
+        hasher.update(s.encode())
+        template_id = hasher.hexdigest()
+        template_path = os.path.join(
+                self._tmpdir,
+                "templates",
+                template_id)
+        if os.path.exists(template_path):
+            return template_id
+        with open(template_path, 'w') as template_fd:
+            template_fd.write(s)
+        return template_id
