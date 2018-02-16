@@ -17,9 +17,9 @@ FrozenFlask was a great tool for generating a static tree from Flask routes, but
 What makes Rime so special?
 ---------------------------
 
- * Using MongoMock, all content is stored and queryable from within the site as if you were actually using MongoDB/MongoEngine.
- * All content is executed as if it were a template, allowing you to build more advanced pages than you could with pure markup. This includes querying for other content, including snapshots of other content, etc -- all dynamically.
- * The system is very pluggable. In fact, Rime itself is simply a pluggable static framework on top of which RimeCore implements the flat-file content system. You can use it, replace it, build on top of it, etc.
+* Using MongoMock, all content is stored and queryable from within the site as if you were actually using MongoDB/MongoEngine.
+* All content is executed as if it were a template, allowing you to build more advanced pages than you could with pure markup. This includes querying for other content, including snapshots of other content, etc -- all dynamically.
+* The system is very pluggable. In fact, Rime itself is simply a pluggable static framework on top of which RimeCore implements the flat-file content system. You can use it, replace it, build on top of it, etc.
 
 ---------------
 What's missing?
